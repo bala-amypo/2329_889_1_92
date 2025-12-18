@@ -9,7 +9,7 @@ public class CrimeReport{
     private String description;
     @Size(min= -90,max=90)
     private Double latitude;
-    @Si
+    @Size(min= -180,max=180;)
     private Double longitude;
     private LocalDateTime occuredAt;
 
