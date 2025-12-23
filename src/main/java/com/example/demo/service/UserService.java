@@ -1,13 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
-import java.util.List;
+import com.example.demo.models.UserModels;
 
 public interface UserService {
 
-    User register(User user) throws Exception;
+    UserModels register(UserModels user);
 
-    User findByEmail(String email) throws Exception;
-
-    List<User> getUsers();   // ✅ ADD THIS
+    UserModels login(String email);
 }

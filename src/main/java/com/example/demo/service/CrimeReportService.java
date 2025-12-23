@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.CrimeReport;
+import com.example.demo.models.CrimeReportModels;
+
 import java.util.List;
 
 public interface CrimeReportService {
-    CrimeReport addReport(CrimeReport report) throws Exception;
-    List<CrimeReport> getAllReports();
+
+    CrimeReportModels addReport(CrimeReportModels report);
+
+    List<CrimeReportModels> getAllReports();
 }

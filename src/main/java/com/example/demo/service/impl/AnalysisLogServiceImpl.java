@@ -1,34 +1,27 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.AnalysisLog;
-import com.example.demo.model.HotspotZone;
+import com.example.demo.models.AnalysisLogModels;
 import com.example.demo.repository.AnalysisLogRepository;
-import com.example.demo.repository.HotspotZoneRepository;
 import com.example.demo.service.AnalysisLogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class AnalysisLogServiceImpl implements AnalysisLogService {
-    private final AnalysisLogRepository logRepository;
-    private final HotspotZoneRepository zoneRepository;
 
-    public AnalysisLogServiceImpl(AnalysisLogRepository logRepository,
-                                 HotspotZoneRepository zoneRepository) {
-        this.logRepository = logRepository;
-        this.zoneRepository = zoneRepository;
+    @Autowired
+    private AnalysisLogRepository analysisLogRepository;
+
+    @Override
+    public AnalysisLogModels addLog(AnalysisLogModels log) {
+        return analysisLogRepository.save(log);
     }
 
     @Override
-    public AnalysisLog addLog(Long zoneId, String message) throws Exception {
-        HotspotZone zone = zoneRepository.findById(zoneId)
-            .orElseThrow(() -> new Exception("Zone not found"));
-        AnalysisLog log = new AnalysisLog(message, null, zone);
-        return logRepository.save(log);
-    }
-
-    @Override
-    public List<AnalysisLog> getLogsByZone(Long zoneId) {
-        return logRepository.findByZone_Id(zoneId);
+    public List<AnalysisLogModels> getLogsByZone(Long zoneId) {
+        return analysisLogRepository.findByZoneId(zoneId);
     }
 }
+`

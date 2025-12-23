@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.PatternDetectionResult;
-import java.util.List;
+import com.example.demo.models.PatternDetectionResultModels;
 
 public interface PatternDetectionService {
-    PatternDetectionResult detectPattern(Long zoneId) throws Exception;
-    List<PatternDetectionResult> getResultsByZone(Long zoneId);
+
+    PatternDetectionResultModels detectPattern(Long zoneId);
 }

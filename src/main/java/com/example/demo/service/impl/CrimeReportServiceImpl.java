@@ -1,37 +1,26 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.CrimeReport;
+import com.example.demo.models.CrimeReportModels;
 import com.example.demo.repository.CrimeReportRepository;
 import com.example.demo.service.CrimeReportService;
-import com.example.demo.util.CoordinateValidator;
-import com.example.demo.util.DateValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class CrimeReportServiceImpl implements CrimeReportService {
-    private final CrimeReportRepository crimeReportRepository;
 
-    public CrimeReportServiceImpl(CrimeReportRepository crimeReportRepository) {
-        this.crimeReportRepository = crimeReportRepository;
-    }
+    @Autowired
+    private CrimeReportRepository crimeReportRepository;
 
     @Override
-    public CrimeReport addReport(CrimeReport report) throws Exception {
-        if (!CoordinateValidator.isValidLatitude(report.getLatitude())) {
-            throw new Exception("Invalid latitude");
-        }
-        if (!CoordinateValidator.isValidLongitude(report.getLongitude())) {
-            throw new Exception("Invalid longitude");
-        }
-        if (!DateValidator.isNotFuture(report.getOccurredAt())) {
-            throw new Exception("Date cannot be in future");
-        }
+    public CrimeReportModels addReport(CrimeReportModels report) {
         return crimeReportRepository.save(report);
     }
 
     @Override
-    public List<CrimeReport> getAllReports() {
+    public List<CrimeReportModels> getAllReports() {
         return crimeReportRepository.findAll();
     }
 }
