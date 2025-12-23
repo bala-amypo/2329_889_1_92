@@ -15,12 +15,12 @@ public class AnalysisLogController {
     @Autowired
     private AnalysisLogRepository analysisLogRepository;
 
-    @PostMapping("/{zoneId}")
-    public AnalysisLogModels addLog(@PathVariable Long zoneId,
-                                    @RequestBody AnalysisLogModels log) {
-        log.setZoneId(zoneId);
-        return analysisLogRepository.save(log);
-    }
+    // @PostMapping("/{zoneId}")
+    // public AnalysisLogModels addLog(@PathVariable Long zoneId,
+    //                                 @RequestBody AnalysisLogModels log) {
+    //     log.setZoneId(zoneId);
+    //     return analysisLogRepository.save(log);
+    // }
 
     @GetMapping("/zone/{zoneId}")
     public List<AnalysisLogModels> getLogsByZone(@PathVariable Long zoneId) {

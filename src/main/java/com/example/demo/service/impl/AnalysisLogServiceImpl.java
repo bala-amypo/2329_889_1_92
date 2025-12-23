@@ -14,10 +14,10 @@ public class AnalysisLogServiceImpl implements AnalysisLogService {
     @Autowired
     private AnalysisLogRepository analysisLogRepository;
 
-    @Override
-    public AnalysisLogModels addLog(AnalysisLogModels log) {
-        return analysisLogRepository.save(log);
-    }
+    // @Override
+    // public AnalysisLogModels addLog(AnalysisLogModels log) {
+    //     return analysisLogRepository.save(log);
+    // }
 
     @Override
     public List<AnalysisLogModels> getLogsByZone(Long zoneId) {

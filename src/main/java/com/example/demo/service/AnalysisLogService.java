@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AnalysisLogService {
 
-    AnalysisLogModels addLog(AnalysisLogModels log);
+    // AnalysisLogModels addLog(AnalysisLogModels log);
 
     List<AnalysisLogModels> getLogsByZone(Long zoneId);
 }
