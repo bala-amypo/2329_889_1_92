@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "hotspot_zones", uniqueConstraints = {
         @UniqueConstraint(columnNames = "zoneName")
 })
-public class HotspotZone {
+public class HotspotZoneModels {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +30,54 @@ public class HotspotZone {
 
     private Double radiusMeters = 0.1;
 
-    public HotspotZone() {}
+    public HotspotZoneModels() {}
 
-    public HotspotZone(String zoneName, Double centerLat,
-                       Double centerLong, String severityLevel) {
+    // getters and setters
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getZoneName() {
+        return zoneName;
+    }
+    
+    public void setZoneName(String zoneName) {
         this.zoneName = zoneName;
+    }
+
+    public Double getCenterLat() {
+        return centerLat;
+    }
+    
+    public void setCenterLat(Double centerLat) {
         this.centerLat = centerLat;
+    }
+
+    public Double getCenterLong() {
+        return centerLong;
+    }
+    
+    public void setCenterLong(Double centerLong) {
         this.centerLong = centerLong;
+    }
+
+    public String getSeverityLevel() {
+        return severityLevel;
+    }
+    
+    public void setSeverityLevel(String severityLevel) {
         this.severityLevel = severityLevel;
     }
 
+    public Double getRadiusMeters() {
+        return radiusMeters;
+    }
+    
+    public void setRadiusMeters(Double radiusMeters) {
+        this.radiusMeters = radiusMeters;
+    }
+}
