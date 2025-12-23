@@ -34,7 +34,6 @@ public class CrimeReportModels {
 
     public CrimeReportModels() {}
 
-    // getters and setters
     public Long getId() {
         return id;
     }
