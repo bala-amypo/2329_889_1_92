@@ -24,4 +24,3 @@ public class AnalysisLogServiceImpl implements AnalysisLogService {
         return analysisLogRepository.findByZoneId(zoneId);
     }
 }
-`
