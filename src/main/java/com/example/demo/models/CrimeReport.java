@@ -1,12 +1,16 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "crime_reports")
 public class CrimeReport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,26 +24,19 @@ public class CrimeReport {
     private String description;
 
     @NotNull
-    @Min(-90)
-    @Max(90)
     private Double latitude;
 
     @NotNull
-    @Min(-180)
-    @Max(180)
     private Double longitude;
 
     @NotNull
     private LocalDateTime occurredAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     public CrimeReport() {}
 
-    public CrimeReport(String crimeType, String description, Double latitude, 
-                      Double longitude, LocalDateTime occurredAt) {
+    public CrimeReport(String crimeType, String description,
+                       Double latitude, Double longitude,
+                       LocalDateTime occurredAt) {
         this.crimeType = crimeType;
         this.description = description;
         this.latitude = latitude;
@@ -47,7 +44,6 @@ public class CrimeReport {
         this.occurredAt = occurredAt;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getCrimeType() { return crimeType; }

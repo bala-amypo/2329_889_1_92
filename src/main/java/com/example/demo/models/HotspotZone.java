@@ -1,46 +1,48 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "hotspot_zones", uniqueConstraints = @UniqueConstraint(columnNames = "zoneName"))
+@Table(name = "hotspot_zones", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "zoneName")
+})
 public class HotspotZone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
     @Size(min = 3, max = 100)
-    @Column(unique = true)
     private String zoneName;
 
     @NotNull
-    @Min(-90)
-    @Max(90)
     private Double centerLat;
 
     @NotNull
-    @Min(-180)
-    @Max(180)
     private Double centerLong;
 
     @NotBlank
     private String severityLevel = "LOW";
 
-    @Positive
     private Double radiusMeters = 0.1;
 
     public HotspotZone() {}
 
-    public HotspotZone(String zoneName, Double centerLat, Double centerLong, String severityLevel) {
+    public HotspotZone(String zoneName, Double centerLat,
+                       Double centerLong, String severityLevel) {
         this.zoneName = zoneName;
         this.centerLat = centerLat;
         this.centerLong = centerLong;
         this.severityLevel = severityLevel;
     }
 
-    // Getters and Setters
+    // getters and setters
+}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getZoneName() { return zoneName; }
