@@ -1,58 +1,59 @@
-package com.example.demo.models;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "hotspot_zones", uniqueConstraints = {
         @UniqueConstraint(columnNames = "zoneName")
 })
-public class HotspotZoneModels {
+public class HotspotZone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 3, max = 100)
+    @Column(unique = true)
     private String zoneName;
 
-    @NotNull
     private Double centerLat;
 
-    @NotNull
     private Double centerLong;
 
-    @NotBlank
-    private String severityLevel = "LOW";
+    private String severityLevel;
 
-    private Double radiusMeters = 0.1;
+    public HotspotZone() {
+    }
 
-    public HotspotZoneModels() {}
+    public HotspotZone(String zoneName, Double centerLat,
+                       Double centerLong, String severityLevel) {
+        this.zoneName = zoneName;
+        this.centerLat = centerLat;
+        this.centerLong = centerLong;
+        this.severityLevel = severityLevel;
+    }
 
-    // getters and setters
+    // Getters and Setters
+
     public Long getId() {
         return id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getZoneName() {
         return zoneName;
     }
-    
+
     public void setZoneName(String zoneName) {
         this.zoneName = zoneName;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Double getCenterLat() {
         return centerLat;
     }
-    
+
     public void setCenterLat(Double centerLat) {
         this.centerLat = centerLat;
     }
@@ -60,7 +61,7 @@ public class HotspotZoneModels {
     public Double getCenterLong() {
         return centerLong;
     }
-    
+
     public void setCenterLong(Double centerLong) {
         this.centerLong = centerLong;
     }
@@ -68,16 +69,8 @@ public class HotspotZoneModels {
     public String getSeverityLevel() {
         return severityLevel;
     }
-    
+
     public void setSeverityLevel(String severityLevel) {
         this.severityLevel = severityLevel;
-    }
-
-    public Double getRadiusMeters() {
-        return radiusMeters;
-    }
-    
-    public void setRadiusMeters(Double radiusMeters) {
-        this.radiusMeters = radiusMeters;
     }
 }

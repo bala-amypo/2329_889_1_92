@@ -1,58 +1,59 @@
-package com.example.demo.models;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "pattern_detection_results")
-public class PatternDetectionResultModels {
+public class PatternDetectionResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    private Long zoneId;
+    @ManyToOne
+    @JoinColumn(name = "zone_id")
+    private HotspotZone zone;
 
     private LocalDate analysisDate;
 
-    @NotNull
     private Integer crimeCount;
 
-    @NotBlank
     private String detectedPattern;
 
-    @PrePersist
-    public void onCreate() {
-        this.analysisDate = LocalDate.now();
+    public PatternDetectionResult() {
     }
 
-    public PatternDetectionResultModels() {}
+    public PatternDetectionResult(HotspotZone zone, LocalDate analysisDate,
+                                  Integer crimeCount, String detectedPattern) {
+        this.zone = zone;
+        this.analysisDate = analysisDate;
+        this.crimeCount = crimeCount;
+        this.detectedPattern = detectedPattern;
+    }
 
-    // getters and setters
+    // Getters and Setters
+
     public Long getId() {
         return id;
     }
-    
-    public void setId(Long id) {
-        this.id = id;
+
+    public HotspotZone getZone() {
+        return zone;
     }
 
-    public Long getZoneId() {
-        return zoneId;
+    public void setZone(HotspotZone zone) {
+        this.zone = zone;
     }
-    
-    public void setZoneId(Long zoneId) {
-        this.zoneId = zoneId;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getAnalysisDate() {
         return analysisDate;
     }
-    
+
     public void setAnalysisDate(LocalDate analysisDate) {
         this.analysisDate = analysisDate;
     }
@@ -60,7 +61,7 @@ public class PatternDetectionResultModels {
     public Integer getCrimeCount() {
         return crimeCount;
     }
-    
+
     public void setCrimeCount(Integer crimeCount) {
         this.crimeCount = crimeCount;
     }
@@ -68,7 +69,7 @@ public class PatternDetectionResultModels {
     public String getDetectedPattern() {
         return detectedPattern;
     }
-    
+
     public void setDetectedPattern(String detectedPattern) {
         this.detectedPattern = detectedPattern;
     }

@@ -1,48 +1,66 @@
-// package com.example.demo.models;
+package com.example.demo.model;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-// @Entity
-// @Table(name = "analysis_logs")
-// public class AnalysisLogModels {
+@Entity
+@Table(name = "analysis_logs")
+public class AnalysisLog {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private String action;
+    private String message;
 
-//     private String description;
+    private LocalDateTime loggedAt;
 
-//     public AnalysisLogModels() {
-//     }
+    @ManyToOne
+    @JoinColumn(name = "zone_id")
+    private HotspotZone zone;
 
-//     public AnalysisLogModels(String action, String description) {
-//         this.action = action;
-//         this.description = description;
-//     }
+    public AnalysisLog() {
+        this.loggedAt = LocalDateTime.now();
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public AnalysisLog(String message, HotspotZone zone) {
+        this.message = message;
+        this.zone = zone;
+        this.loggedAt = LocalDateTime.now();
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    @PrePersist
+    protected void onCreate() {
+        this.loggedAt = LocalDateTime.now();
+    }
 
-//     public String getAction() {
-//         return action;
-//     }
+    // Getters and Setters
 
-//     public void setAction(String action) {
-//         this.action = action;
-//     }
+    public Long getId() {
+        return id;
+    }
 
-//     public String getDescription() {
-//         return description;
-//     }
+    public String getMessage() {
+        return message;
+    }
 
-//     public void setDescription(String description) {
-//         this.description = description;
-//     }
-// }
+    public LocalDateTime getLoggedAt() {
+        return loggedAt;
+    }
+
+    public HotspotZone getZone() {
+        return zone;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setZone(HotspotZone zone) {
+        this.zone = zone;
+    }
+}
