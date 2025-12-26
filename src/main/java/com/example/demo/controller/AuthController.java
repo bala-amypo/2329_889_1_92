@@ -1,25 +1,55 @@
 package com.example.demo.controller;
 
-import com.example.demo.models.UserModels;
-import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.config.JwtUtil;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthController(UserService userService,
+                          JwtUtil jwtUtil,
+                          PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostMapping("/register")
-    public UserModels register(@RequestBody UserModels user) {
-        return userRepository.save(user);
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
 
     @PostMapping("/login")
-    public UserModels login(@RequestBody UserModels user) {
-        return userRepository.findByEmail(user.getEmail());
+    public AuthResponse login(@RequestBody AuthRequest request) {
+
+        User user = userService.findByEmail(request.getEmail());
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("invalid credentials");
+        }
+
+        String token = jwtUtil.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return new AuthResponse(
+                token,
+                user.getId(),
+                user.getEmail(),
+                user.getRole()
+        );
     }
 }
 

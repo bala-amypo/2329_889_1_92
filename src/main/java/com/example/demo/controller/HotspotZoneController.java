@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.models.HotspotZoneModels;
-import com.example.demo.repository.HotspotZoneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.model.HotspotZone;
+import com.example.demo.service.HotspotZoneService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,17 +10,20 @@ import java.util.List;
 @RequestMapping("/zones")
 public class HotspotZoneController {
 
-    @Autowired
-    private HotspotZoneRepository hotspotZoneRepository;
+    private final HotspotZoneService zoneService;
+
+    public HotspotZoneController(HotspotZoneService zoneService) {
+        this.zoneService = zoneService;
+    }
 
     @PostMapping
-    public HotspotZoneModels addZone(@RequestBody HotspotZoneModels zone) {
-        return hotspotZoneRepository.save(zone);
+    public HotspotZone addZone(@RequestBody HotspotZone zone) {
+        return zoneService.addZone(zone);
     }
 
     @GetMapping
-    public List<HotspotZoneModels> getAllZones() {
-        return hotspotZoneRepository.findAll();
+    public List<HotspotZone> getAllZones() {
+        return zoneService.getAllZones();
     }
 }
 
