@@ -1,12 +1,12 @@
-// package com.example.demo.service;
+package com.example.demo.service;
 
-// import com.example.demo.models.AnalysisLogModels;
+import com.example.demo.model.AnalysisLog;
 
-// import java.util.List;
+import java.util.List;
 
-// public interface AnalysisLogService {
+public interface AnalysisLogService {
 
-//     // AnalysisLogModels addLog(AnalysisLogModels log);
+    AnalysisLog addLog(Long zoneId, String message);
 
-//     List<AnalysisLogModels> getLogsByZone(Long zoneId);
-// }
+    List<AnalysisLog> getLogsByZone(Long zoneId);
+}

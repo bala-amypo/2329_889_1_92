@@ -1,26 +1,39 @@
-// package com.example.demo.service.impl;
+package com.example.demo.service.impl;
 
-// import com.example.demo.models.AnalysisLogModels;
-// import com.example.demo.repository.AnalysisLogRepository;
-// import com.example.demo.service.AnalysisLogService;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Service;
+import com.example.demo.model.AnalysisLog;
+import com.example.demo.model.HotspotZone;
+import com.example.demo.repository.AnalysisLogRepository;
+import com.example.demo.repository.HotspotZoneRepository;
+import com.example.demo.service.AnalysisLogService;
+import com.example.demo.exception.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
-// import java.util.List;
+@Service
+public class AnalysisLogServiceImpl implements AnalysisLogService {
 
-// @Service
-// public class AnalysisLogServiceImpl implements AnalysisLogService {
+    private final AnalysisLogRepository logRepo;
+    private final HotspotZoneRepository zoneRepo;
 
-//     @Autowired
-//     private AnalysisLogRepository analysisLogRepository;
+    public AnalysisLogServiceImpl(
+            AnalysisLogRepository logRepo,
+            HotspotZoneRepository zoneRepo) {
 
-//     // @Override
-//     // public AnalysisLogModels addLog(AnalysisLogModels log) {
-//     //     return analysisLogRepository.save(log);
-//     // }
+        this.logRepo = logRepo;
+        this.zoneRepo = zoneRepo;
+    }
 
-//     @Override
-//     public List<AnalysisLogModels> getLogsByZone(Long zoneId) {
-//         return analysisLogRepository.findByZoneId(zoneId);
-//     }
-// }
+    @Override
+    public AnalysisLog addLog(Long zoneId, String message) {
+
+        HotspotZone zone = zoneRepo.findById(zoneId)
+                .orElseThrow(() -> new ResourceNotFoundException("zone not found"));
+
+        AnalysisLog log = new AnalysisLog(message, zone);
+        return logRepo.save(log);
+    }
+
+    @Override
+    public java.util.List<AnalysisLog> getLogsByZone(Long zoneId) {
+        return logRepo.findByZone_Id(zoneId);
+    }
+}
