@@ -84,4 +84,3 @@ public class CrimeReport {
         this.occurredAt = occurredAt;
     }
 }
-
