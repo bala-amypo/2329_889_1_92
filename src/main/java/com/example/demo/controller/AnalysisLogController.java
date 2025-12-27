@@ -13,18 +13,19 @@ public class AnalysisLogController {
 
     private final AnalysisLogService logService;
 
-    public AnalysisLogController(AnalysisLogService logService) {
-        this.logService = logService;
-    }
+        public AnalysisLogController(AnalysisLogService logService) {
+                this.logService = logService;
+                    }
 
-    @PostMapping("/{zoneId}")
-    public AnalysisLog addLog(@PathVariable Long zoneId,
-                              @RequestBody Map<String, String> body) {
-        return logService.addLog(zoneId, body.get("message"));
-    }
+                        @PostMapping("/{zoneId}")
+                            public AnalysisLog addLog(@PathVariable Long zoneId,
+                                                          @RequestBody Map<String, String> body) {
+                                                                  return logService.addLog(zoneId, body.get("message"));
+                                                                      }
 
-    @GetMapping("/zone/{zoneId}")
-    public List<AnalysisLog> getLogs(@PathVariable Long zoneId) {
-        return logService.getLogsByZone(zoneId);
-    }
-}
+                                                                          @GetMapping("/zone/{zoneId}")
+                                                                              public List<AnalysisLog> getLogs(@PathVariable Long zoneId) {
+                                                                                      return logService.getLogsByZone(zoneId);
+                                                                                          }
+                                                                                          }
+                                                                                          
